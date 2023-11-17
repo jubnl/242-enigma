@@ -1,5 +1,6 @@
 # Projet Enigma
 #### Julien, Carolina
+[version pdf](./assets/TP_Enigma.pdf)
 
 ## 1ère étape : fonctionnement Enigma
 - Qu’est-ce que l’entrée et la sortie de la machine Enigma?
