@@ -1,0 +1,6 @@
+- https://web.stanford.edu/class/cs106j/handouts/36-TheEnigmaMachine.pdf
+- https://crypto.stackexchange.com/questions/91568/enigma-machine-encryption-steps
+- https://dev.to/maxime1992/enigma-machine-how-does-the-famous-encryption-device-work-5aon
+- https://stanford.edu/class/archive/cs/cs106a/cs106a.1164/handouts/29A-CryptographyChapter.pdf
+- https://github.com/the-lambda-way/bruteforce-enigma
+- https://github.com/risteon/enigma-bruteforce
