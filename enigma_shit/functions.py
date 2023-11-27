@@ -170,6 +170,7 @@ def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher
         ["CPU Arch", cpu_infos["arch"]],
         ["CPU Bits", cpu_infos["bits"]],
         ["CPU GHz (actual/advertised)", cpu_infos["hz_actual_friendly"] + "/" + cpu_infos["hz_advertised_friendly"]],
+        ["CPU Cycle amount per try", cpu_infos["hz_actual"][0] / (data[2] / data[1] / cores)],
         ["Rotors", "" if data[0] is None else data[0][0]],
         ["Initial position", "" if data[0] is None else data[0][1]],
         ["Plugboard settings", plugboard_settings],
