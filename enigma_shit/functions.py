@@ -158,14 +158,18 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     return final_result, end_time - start_time, processed_count.value
 
 
-def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher):
-    cores = multiprocessing.cpu_count()
+def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos):
+    cores = cpu_infos["count"]
     table = [
         ["Status", "Failed" if data[0] is None else "Success"],
         ["Time to bruteforce (seconds)", data[1]],
         ["Total tries", data[2]],
         ["Tries by second", f"{data[2] / data[1]} ({data[2] / data[1] / cores} try/cpu core/second)"],
+        ["CPU Name", cpu_infos["brand_raw"]],
         ["CPU Cores", cores],
+        ["CPU Arch", cpu_infos["arch"]],
+        ["CPU Bits", cpu_infos["bits"]],
+        ["CPU GHz (actual/advertised)", cpu_infos["hz_actual_friendly"] + "/" + cpu_infos["hz_advertised_friendly"]],
         ["Rotors", "" if data[0] is None else data[0][0]],
         ["Initial position", "" if data[0] is None else data[0][1]],
         ["Plugboard settings", plugboard_settings],

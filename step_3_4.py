@@ -47,3 +47,5 @@ if __name__ == "__main__":
 
     print("Output saved at :", os.path.abspath("./step_3-4.output.txt"))
     print(table)
+
+    os._exit(os.EX_OK)
