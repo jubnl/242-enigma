@@ -28,7 +28,7 @@ def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher
         ).process_text(cipher)]
     ]
 
-    print(tabulate(table, tablefmt="rounded_grid"))
+    return tabulate(table, tablefmt="rounded_grid")
 
 
 if __name__ == "__main__":
@@ -58,6 +58,10 @@ if __name__ == "__main__":
 
     table = tabulate(
         [
+            ["Rotors", rotors],
+            ["Plugboard settings", plugboard_settings],
+            ["Ring settings", ", ".join([str(i) for i in ring_settings])],
+            ["Initial position", initial_position],
             ["Plain text", plain],
             ["Ciphered text", cypher],
             ["Deciphered text", decoded],
@@ -65,6 +69,10 @@ if __name__ == "__main__":
         tablefmt="rounded_grid"
     )
 
+    with open("etape_3-4.output.txt", "w", encoding="utf-8") as f:
+        f.write(table)
+
+    print("Output saved at :", os.path.abspath("./etape_3-4.output.txt"))
     print(table)
 
     cipher1 = "HUFLTVDIPVYDQFLDZGEHBNLVVPNCMDTJBSBCISSQAJPWTIMJMRPTOMIKKYKGCJXBNKEQHSUAOMGUJOKLSNABOCSOMYGVLXCJCGVAAYSJFOSISJCAIYFHUJYYJDGGWNCZ"
@@ -72,6 +80,7 @@ if __name__ == "__main__":
     plugboard_settings = "GH QW TZ RO IP AL SJ DK CN YM"
     ring_settings = [19, 6, 8]
     first_word = "METEOROLOGIE"
+
     data1 = bruteforce(
         cipher1,
         plugboard_settings=plugboard_settings,
@@ -80,6 +89,12 @@ if __name__ == "__main__":
         first_word=first_word
     )
 
+    table1 = print_bruteforce(data1, plugboard_settings, ring_settings, first_word, cipher1)
+    with open("etape_5-previous-cipher.output.txt", "w", encoding="utf-8") as f:
+        f.write(table1)
+    print("Output saved at :", os.path.abspath("./etape_5-previous-cipher.output.txt"))
+    print(table1)
+
     data2 = bruteforce(
         cipher2,
         plugboard_settings=plugboard_settings,
@@ -87,9 +102,11 @@ if __name__ == "__main__":
         shuffle=True,
         first_word=first_word
     )
-
-    print_bruteforce(data1, plugboard_settings, ring_settings, first_word, cipher1)
-    print_bruteforce(data2, plugboard_settings, ring_settings, first_word, cipher2)
+    table2 = print_bruteforce(data2, plugboard_settings, ring_settings, first_word, cipher2)
+    with open("etape_5-new-cipher.output.txt", "w", encoding="utf-8") as f:
+        f.write(table2)
+    print("Output saved at :", os.path.abspath("./etape_5-new-cipher.output.txt"))
+    print(table2)
 
     # force exit because queues behave strangely
     os._exit(0)
