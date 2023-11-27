@@ -12,7 +12,7 @@ from multiprocessing_shit import init_workers
 
 
 def get_machine(
-        ring_settings: List[int] | None = None,
+        ring_settings: List[int] = None,
         rotors: str = "I V IV",
         plugboard_settings: str = "NX EC RV GP SU DK IT FY BL AZ",
         initial_position: str = "GYD",
@@ -20,7 +20,7 @@ def get_machine(
 ) -> EnigmaMachine:
     """Create an EnigmaMachine instance
     :param ring_settings: ring settings
-    :type ring_settings: List[int] | None
+    :type ring_settings: List[int]
     :param rotors: Rotors used
     :type rotors: str
     :param plugboard_settings: Letters swaps
@@ -41,14 +41,14 @@ def get_machine(
     return machine
 
 
-def encode(plain_text: str, machine: EnigmaMachine | None = None):
+def encode(plain_text: str, machine: Optional[EnigmaMachine] = None):
     if machine is None:
         # get machine with default parameters
         machine = get_machine()
     return machine.process_text(plain_text)
 
 
-def decode(cipher: str, machine: EnigmaMachine | None = None):
+def decode(cipher: str, machine: Optional[EnigmaMachine] = None):
     if machine is None:
         # get machine with default parameters
         machine = get_machine()
