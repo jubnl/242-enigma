@@ -7,6 +7,7 @@ import random
 from typing import List, Optional
 
 from enigma.machine import EnigmaMachine
+from tabulate import tabulate
 
 from multiprocessing_shit import init_workers
 
@@ -116,7 +117,8 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     if reverse:
         bruteforce_parameters = reversed(bruteforce_parameters)
 
-    worker_amount, processes = init_workers(input_queue, output_queue, stop_event, processed_event, total_tasks, processed_count_lock, processed_count)
+    worker_amount, processes = init_workers(input_queue, output_queue, stop_event, processed_event, total_tasks,
+                                            processed_count_lock, processed_count)
 
     # start bruteforce
     for params in bruteforce_parameters:
@@ -154,3 +156,28 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     end_time = time.time()
 
     return final_result, end_time - start_time, processed_count.value
+
+
+def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher):
+    cores = multiprocessing.cpu_count()
+    table = [
+        ["Status", "Failed" if data[0] is None else "Success"],
+        ["Time to bruteforce (seconds)", data[1]],
+        ["Total tries", data[2]],
+        ["Tries by second", f"{data[2] / data[1]} ({data[2] / data[1] / cores} try/cpu core/second)"],
+        ["CPU Cores", cores],
+        ["Rotors", "" if data[0] is None else data[0][0]],
+        ["Initial position", "" if data[0] is None else data[0][1]],
+        ["Plugboard settings", plugboard_settings],
+        ["Ring settings", ", ".join([str(i) for i in ring_settings])],
+        ["First word", first_word],
+        ["Cipher", cipher],
+        ["Deciphered", "" if data[0] is None else get_machine(
+            ring_settings=ring_settings,
+            plugboard_settings=plugboard_settings,
+            initial_position=data[0][1],
+            rotors=data[0][0],
+        ).process_text(cipher)]
+    ]
+
+    return tabulate(table, tablefmt="rounded_grid")
