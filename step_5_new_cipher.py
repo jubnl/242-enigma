@@ -20,9 +20,9 @@ if __name__ == "__main__":
     )
 
     table = print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos)
-    with open("step_5-previous-cipher.output.txt", "w", encoding="utf-8") as f:
+    with open("step_5-new-cipher.output.txt", "w", encoding="utf-8") as f:
         f.write(table)
-    print("Output saved at :", os.path.abspath("./step_5-previous-cipher.output.txt"))
+    print("Output saved at :", os.path.abspath("./step_5-new-cipher.output.txt"))
     print(table)
 
     os._exit(os.EX_OK)
