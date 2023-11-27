@@ -32,17 +32,19 @@ def init_workers(
         processed_count: multiprocessing.Value
 ):
     worker_amount = multiprocessing.cpu_count()
-    processes = [multiprocessing.Process(target=worker, args=(
-        input_queue,
-        output_queue,
-        stop_event,
-        proceed_event,
-        total_tasks,
-        processed_count_lock,
-        processed_count
-    )) for _
-                 in
-                 range(worker_amount)]
+    processes = [
+        multiprocessing.Process(target=worker, args=(
+            input_queue,
+            output_queue,
+            stop_event,
+            proceed_event,
+            total_tasks,
+            processed_count_lock,
+            processed_count
+        )) for _
+        in
+        range(worker_amount)
+    ]
 
     for p in processes:
         p.start()

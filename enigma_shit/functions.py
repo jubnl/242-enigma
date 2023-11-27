@@ -145,6 +145,8 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
         if processed_event.is_set() and final_result is None:
             break
 
+    end_time = time.time()
+
     # Explicitly terminate all worker processes
     for p in processes:
         p.terminate()
@@ -152,8 +154,6 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     # Join all worker processes
     for p in processes:
         p.join()
-
-    end_time = time.time()
 
     return final_result, end_time - start_time, processed_count.value
 
