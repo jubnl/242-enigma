@@ -8,19 +8,19 @@ if __name__ == "__main__":
     cipher = "GRWYGBHCZRZKAOQDWJYKQSLNKGINIKUAHAUFKUKGRNVKUWOFTVNCKHDAYWKJBJYVWFFWNVXMLDGXARISRQJQOJGLEAYWNUWVDYUACPBMSJGRSOHAYRLINRHIPCBHJAZO"
     plugboard_settings = "GH QW TZ RO IP AL SJ DK CN YM"
     ring_settings = [19, 6, 8]
-    ring_settings = " ".join([str(i) for i in ring_settings])
+    _ring_settings = " ".join([str(i) for i in ring_settings])
     first_word = "METEOROLOGIE"
     cpu_infos = get_cpu_info()
 
     data = bruteforce(
         cipher,
         plugboard_settings=plugboard_settings,
-        ring_settings=ring_settings,
+        ring_settings=_ring_settings,
         shuffle=True,
         first_word=first_word
     )
 
-    table = print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos)
+    table = print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos, is_new=True)
     with open("step_5-new-cipher.output.txt", "w", encoding="utf-8") as f:
         f.write(table)
     print("Output saved at :", os.path.abspath("./step_5-new-cipher.output.txt"))

@@ -13,7 +13,7 @@ from multiprocessing_shit import init_workers
 
 
 def get_machine(
-        ring_settings: List[int] = None,
+        ring_settings: Optional[Union[List[int], str]] = None,
         rotors: str = "I V IV",
         plugboard_settings: str = "NX EC RV GP SU DK IT FY BL AZ",
         initial_position: str = "GYD",
@@ -158,19 +158,19 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     return final_result, end_time - start_time, processed_count.value
 
 
-def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos):
+def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos, is_new=False):
     cores = cpu_infos["count"]
     table = [
         ["Status", "Failed" if data[0] is None else "Success"],
         ["Time to bruteforce (seconds)", data[1]],
         ["Total tries", data[2]],
         ["Tries by second", f"{data[2] / data[1]} ({data[2] / data[1] / cores} try/cpu core/second)"],
-        ["CPU Name", cpu_infos["brand_raw"]],
-        ["CPU Cores", cores],
-        ["CPU Arch", cpu_infos["arch"]],
-        ["CPU Bits", cpu_infos["bits"]],
-        ["CPU GHz (actual/advertised)", cpu_infos["hz_actual_friendly"] + "/" + cpu_infos["hz_advertised_friendly"]],
-        ["CPU Cycle amount per try", cpu_infos["hz_actual"][0] / (data[2] / data[1] / cores)],
+        # ["CPU Name", cpu_infos["brand_raw"]],
+        # ["CPU Cores", cores],
+        # ["CPU Arch", cpu_infos["arch"]],
+        # ["CPU Bits", cpu_infos["bits"]],
+        # ["CPU GHz (actual/advertised)", cpu_infos["hz_actual_friendly"] + "/" + cpu_infos["hz_advertised_friendly"]],
+        # ["CPU Cycle amount per try", cpu_infos["hz_actual"][0] / (data[2] / data[1] / cores)],
         ["Rotors", "" if data[0] is None else data[0][0]],
         ["Initial position", "" if data[0] is None else data[0][1]],
         ["Plugboard settings", plugboard_settings],
@@ -178,7 +178,7 @@ def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher
         ["First word", first_word],
         ["Cipher", cipher],
         ["Deciphered", "" if data[0] is None else get_machine(
-            ring_settings=ring_settings,
+            ring_settings=ring_settings if not is_new else " ".join([str(i) for i in ring_settings]),
             plugboard_settings=plugboard_settings,
             initial_position=data[0][1],
             rotors=data[0][0],

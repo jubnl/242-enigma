@@ -7,7 +7,7 @@ from enigma_shit import bruteforce, print_bruteforce
 if __name__ == "__main__":
     cipher = "HUFLTVDIPVYDQFLDZGEHBNLVVPNCMDTJBSBCISSQAJPWTIMJMRPTOMIKKYKGCJXBNKEQHSUAOMGUJOKLSNABOCSOMYGVLXCJCGVAAYSJFOSISJCAIYFHUJYYJDGGWNCZ"
     plugboard_settings = "GH QW TZ RO IP AL SJ DK CN YM"
-    ring_settings = "19 6 8"
+    ring_settings = [19, 6, 8]
     first_word = "METEOROLOGIE"
     cpu_infos = get_cpu_info()
 
