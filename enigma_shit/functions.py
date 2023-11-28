@@ -4,7 +4,7 @@ import string
 import time
 from itertools import permutations, product
 import random
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from enigma.machine import EnigmaMachine
 from tabulate import tabulate
@@ -84,7 +84,7 @@ def process_bruteforce(
 
 
 def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK CN YM",
-               ring_settings: Optional[List[int]] = None, shuffle: bool = False, reverse: bool = False,
+               ring_settings: Optional[Union[List[int], str]] = None, shuffle: bool = False, reverse: bool = False,
                first_word: str = "METEOROLOGIE"):
     if ring_settings is None:
         ring_settings = [19, 6, 8]
