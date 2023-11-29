@@ -26,4 +26,6 @@ if __name__ == "__main__":
     print("Output saved at :", os.path.abspath("./step_5-new-cipher.output.txt"))
     print(table)
 
+    # Queues behaves strangely, if I don't kill python this way, the queues takes multiple minute to close out
+    # completely.
     os._exit(os.EX_OK)

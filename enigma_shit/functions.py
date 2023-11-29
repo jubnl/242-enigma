@@ -64,6 +64,8 @@ def process_bruteforce(
         plugboard_settings: str = "GH QW TZ RO IP AL SJ DK CN YM",
         first_word: str = "METEOROLOGIE",
 ):
+    # small optimisation, only test for the 1st word
+    cipher = cipher[0:len(first_word)]
     # set default parameters
     if ring_settings is None:
         ring_settings = [19, 6, 8]
@@ -77,18 +79,28 @@ def process_bruteforce(
 
     deciphered = machine.process_text(cipher)
 
-    if first_word in deciphered:
+    if first_word == deciphered:
         return rotors, initial_position
 
     return None
 
 
-def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK CN YM",
-               ring_settings: Optional[Union[List[int], str]] = None, shuffle: bool = False, reverse: bool = False,
-               first_word: str = "METEOROLOGIE"):
+def bruteforce(
+        cipher: str,
+        plugboard_settings: str = "GH QW TZ RO IP AL SJ DK CN YM",
+        ring_settings: Optional[Union[List[int], str]] = None,
+        shuffle: bool = False,
+        reverse: bool = False,
+        first_word: str = "METEOROLOGIE",
+        separator: str = "X"
+):
     if ring_settings is None:
         ring_settings = [19, 6, 8]
 
+    if not first_word.endswith(separator):
+        first_word += separator
+
+    # Create queues
     input_queue = multiprocessing.Queue()
     output_queue = multiprocessing.Queue()
     stop_event = multiprocessing.Event()
@@ -98,9 +110,11 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     processed_count = multiprocessing.Value('i', 0)  # 'i' is the type code for integers
     processed_count_lock = multiprocessing.Lock()  # A lock to ensure thread-safe increments
 
+    # generate all possible combinations
     initial_positions = [''.join(combo) for combo in permutations(string.ascii_uppercase, 3)]
     possible_rotors = [" ".join(combo) for combo in permutations(["I", "II", "III", "IV", "V"], 3)]
 
+    # generate all bruteforce parameters
     bruteforce_parameters = [{
         "cipher": cipher,
         "initial_position": initial_position,
@@ -108,19 +122,30 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
         "ring_settings": ring_settings,
         "plugboard_settings": plugboard_settings,
         "first_word": first_word
-    } for (initial_position, rotors) in product(initial_positions, possible_rotors)]
+    } for (rotors, initial_position) in product(possible_rotors, initial_positions)]
     total_tasks = len(bruteforce_parameters)
 
+    # shuffle parameters. This will make (in theory) the bruteforce faster since it is never the 1st or the last
+    # (again, in theory)
     if shuffle:
         random.shuffle(bruteforce_parameters)
 
+    # reverse parameters
     if reverse:
         bruteforce_parameters = reversed(bruteforce_parameters)
 
-    worker_amount, processes = init_workers(input_queue, output_queue, stop_event, processed_event, total_tasks,
-                                            processed_count_lock, processed_count)
+    # init workers that listen to the input_queue and put the result in the output_queue
+    worker_amount, processes = init_workers(
+        input_queue,
+        output_queue,
+        stop_event,
+        processed_event,
+        total_tasks,
+        processed_count_lock,
+        processed_count
+    )
 
-    # start bruteforce
+    # put all bruteforce parameters in the input_queue
     for params in bruteforce_parameters:
         input_queue.put((process_bruteforce, params))
 
@@ -131,6 +156,7 @@ def bruteforce(cipher: str, plugboard_settings: str = "GH QW TZ RO IP AL SJ DK C
     final_result = None
     start_time = time.time()
 
+    # Wait for all tasks to be processed
     while True:
         try:
             result = output_queue.get(timeout=1)
