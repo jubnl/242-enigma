@@ -176,7 +176,7 @@ def bruteforce(
     for p in processes:
         p.join()
 
-    return final_result, end_time - start_time, processed_count.value, shuffle, reverse
+    return final_result, end_time - start_time, processed_count.value, total_tasks, shuffle, reverse
 
 
 def print_bruteforce(
@@ -193,7 +193,8 @@ def print_bruteforce(
 
     # format data
     total_seconds = f"{data[1]:,.2f} seconds".replace(",", "'")
-    total_tries = f"{data[2]:,}".replace(",", "'")
+    tries = f"{data[2]:,}".replace(",", "'")
+    total_tries = f"{data[3]:,}".replace(",", "'")
     tries_by_second = f"{(data[2] / data[1]):,.2f}".replace(",", "'")
     tries_by_second_by_core = f"{(data[2] / data[1] / cores):,.2f}".replace(",", "'")
 
@@ -201,10 +202,10 @@ def print_bruteforce(
     table = [
         ["Status", "Failed" if data[0] is None else "Success"],
         ["Duration", total_seconds],
-        ["Total tries (tried/total)", f"{total_tries}/1'054'560"],
+        ["Total tries (tried/total)", f"{tries}/{total_tries}"],
         ["Tries by second", f"{tries_by_second} ({tries_by_second_by_core} try/cpu core/second)"],
-        ["Input randomized", data[3]],
-        ["Input reversed", data[4]],
+        ["Input randomized", data[4]],
+        ["Input reversed", data[5]],
         # ["CPU Name", cpu_infos["brand_raw"]],
         # ["CPU Cores", cores],
         # ["CPU Arch", cpu_infos["arch"]],
