@@ -111,10 +111,13 @@ def bruteforce(
     processed_count_lock = multiprocessing.Lock()  # A lock to ensure thread-safe increments
 
     # generate all possible combinations
-    initial_positions = [''.join(combo) for combo in permutations(string.ascii_uppercase, 3)]
+    # initial position can be AAA, AAB, ..., ZZZ, so 26^3 = 17'576 possibilities
+    initial_positions = [''.join(p) for p in product(string.ascii_uppercase, repeat=3)]
+
+    # rotors can be I, II, III, IV, V, but a rotor is unique. So 5 * 4 * 3 = 60 possibilities
     possible_rotors = [" ".join(combo) for combo in permutations(["I", "II", "III", "IV", "V"], 3)]
 
-    # generate all bruteforce parameters
+    # generate all bruteforce parameters. This will be the input of the workers (17'576 * 60 = 1'054'560 possibilities)
     bruteforce_parameters = [{
         "cipher": cipher,
         "initial_position": initial_position,
