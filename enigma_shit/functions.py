@@ -1,9 +1,9 @@
 import multiprocessing
 import queue
+import random
 import string
 import time
 from itertools import permutations, product
-import random
 from typing import List, Optional, Union
 
 from enigma.machine import EnigmaMachine
@@ -19,18 +19,6 @@ def get_machine(
         initial_position: str = "GYD",
         # key: str = "OCR"
 ) -> EnigmaMachine:
-    """Create an EnigmaMachine instance
-    :param ring_settings: ring settings
-    :type ring_settings: List[int]
-    :param rotors: Rotors used
-    :type rotors: str
-    :param plugboard_settings: Letters swaps
-    :type plugboard_settings: str
-    :param initial_position: Rotors initial position
-    :type initial_position: str
-    :rtype: EnigmaMachine
-    :return: A new preconfigured EnigmaMachine instance
-    """
     machine = EnigmaMachine.from_key_sheet(
         rotors=rotors,
         ring_settings=ring_settings if ring_settings is not None else [13, 15, 11],
@@ -63,6 +51,7 @@ def process_bruteforce(
         ring_settings: Optional[List[int]] = None,
         plugboard_settings: str = "GH QW TZ RO IP AL SJ DK CN YM",
         first_word: str = "METEOROLOGIE",
+        separator: str = "X",
 ):
     # small optimisation, only test for the 1st word
     cipher = cipher[0:len(first_word)]
@@ -74,10 +63,10 @@ def process_bruteforce(
         rotors=rotors,
         ring_settings=ring_settings,
         plugboard_settings=plugboard_settings,
-        initial_position=initial_position
+        initial_position=initial_position,
     )
 
-    deciphered = machine.process_text(cipher)
+    deciphered = machine.process_text(cipher, replace_char=separator)
 
     if first_word == deciphered:
         return rotors, initial_position
@@ -94,6 +83,8 @@ def bruteforce(
         first_word: str = "METEOROLOGIE",
         separator: str = "X"
 ):
+    assert separator in string.ascii_uppercase, "Separator must be an uppercase ascii letter"
+
     if ring_settings is None:
         ring_settings = [19, 6, 8]
 
@@ -124,7 +115,8 @@ def bruteforce(
         "rotors": rotors,
         "ring_settings": ring_settings,
         "plugboard_settings": plugboard_settings,
-        "first_word": first_word
+        "first_word": first_word,
+        "separator": separator,
     } for (rotors, initial_position) in product(possible_rotors, initial_positions)]
     total_tasks = len(bruteforce_parameters)
 
@@ -158,12 +150,14 @@ def bruteforce(
 
     final_result = None
     start_time = time.time()
+    end_time = None
 
     # Wait for all tasks to be processed
     while True:
         try:
             result = output_queue.get(timeout=1)
             if result is not None:
+                end_time = time.time()
                 final_result = result
                 stop_event.set()
                 break
@@ -174,7 +168,8 @@ def bruteforce(
         if processed_event.is_set() and final_result is None:
             break
 
-    end_time = time.time()
+    if end_time is None:
+        end_time = time.time()
 
     # Explicitly terminate all worker processes
     for p in processes:
@@ -184,16 +179,35 @@ def bruteforce(
     for p in processes:
         p.join()
 
-    return final_result, end_time - start_time, processed_count.value
+    return final_result, end_time - start_time, processed_count.value, shuffle, reverse
 
 
-def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher, cpu_infos, is_new=False):
+def print_bruteforce(
+        data,
+        plugboard_settings,
+        ring_settings,
+        first_word,
+        cipher,
+        cpu_infos,
+        is_new=False,
+        separator="X"
+):
     cores = cpu_infos["count"]
+
+    # format data
+    total_seconds = f"{data[1]:,.2f} seconds".replace(",", "'")
+    total_tries = f"{data[2]:,}".replace(",", "'")
+    tries_by_second = f"{(data[2] / data[1]):,.2f}".replace(",", "'")
+    tries_by_second_by_core = f"{(data[2] / data[1] / cores):,.2f}".replace(",", "'")
+
+    # create table and returns it
     table = [
         ["Status", "Failed" if data[0] is None else "Success"],
-        ["Time to bruteforce (seconds)", data[1]],
-        ["Total tries", data[2]],
-        ["Tries by second", f"{data[2] / data[1]} ({data[2] / data[1] / cores} try/cpu core/second)"],
+        ["Duration", total_seconds],
+        ["Total tries (tried/total)", f"{total_tries}/1'054'560"],
+        ["Tries by second", f"{tries_by_second} ({tries_by_second_by_core} try/cpu core/second)"],
+        ["Input randomized", data[3]],
+        ["Input reversed", data[4]],
         # ["CPU Name", cpu_infos["brand_raw"]],
         # ["CPU Cores", cores],
         # ["CPU Arch", cpu_infos["arch"]],
@@ -211,7 +225,7 @@ def print_bruteforce(data, plugboard_settings, ring_settings, first_word, cipher
             plugboard_settings=plugboard_settings,
             initial_position=data[0][1],
             rotors=data[0][0],
-        ).process_text(cipher)]
+        ).process_text(cipher, replace_char=separator)]
     ]
 
     return tabulate(table, tablefmt="rounded_grid")
