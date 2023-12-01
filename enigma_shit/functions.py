@@ -30,18 +30,15 @@ def get_machine(
     return machine
 
 
-def encode(plain_text: str, machine: Optional[EnigmaMachine] = None):
+def encode(plain_text: str, machine: Optional[EnigmaMachine] = None, separator: str = "X"):
     if machine is None:
         # get machine with default parameters
         machine = get_machine()
-    return machine.process_text(plain_text)
+    return machine.process_text(plain_text, replace_char=separator)
 
 
-def decode(cipher: str, machine: Optional[EnigmaMachine] = None):
-    if machine is None:
-        # get machine with default parameters
-        machine = get_machine()
-    return machine.process_text(cipher)
+def decode(cipher: str, machine: Optional[EnigmaMachine] = None, separator: str = "X"):
+    return encode(cipher, machine=machine, separator=separator)
 
 
 def process_bruteforce(
