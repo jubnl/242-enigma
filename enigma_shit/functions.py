@@ -186,7 +186,6 @@ def print_bruteforce(
         first_word,
         cipher,
         cpu_infos,
-        is_new=False,
         separator="X"
 ):
     cores = cpu_infos["count"]
@@ -215,11 +214,11 @@ def print_bruteforce(
         ["Rotors", "" if data[0] is None else data[0][0]],
         ["Initial position", "" if data[0] is None else data[0][1]],
         ["Plugboard settings", plugboard_settings],
-        ["Ring settings", ", ".join([str(i) for i in ring_settings])],
+        ["Ring settings", ring_settings],
         ["First word", first_word],
         ["Cipher", cipher],
         ["Deciphered", "" if data[0] is None else get_machine(
-            ring_settings=ring_settings if not is_new else " ".join([str(i) for i in ring_settings]),
+            ring_settings=ring_settings,
             plugboard_settings=plugboard_settings,
             initial_position=data[0][1],
             rotors=data[0][0],
