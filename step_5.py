@@ -1,5 +1,5 @@
 import os
-
+import platform
 from cpuinfo import get_cpu_info
 
 from enigma_shit import bruteforce, print_bruteforce
@@ -11,6 +11,7 @@ if __name__ == "__main__":
     _ring_settings = " ".join([str(i) for i in ring_settings])
     first_word = "METEOROLOGIE"
     separator = "X"
+    output_file_name = f"step_5.output.{platform.system()}.{platform.release()}.txt"
     cpu_infos = get_cpu_info()
 
     data = bruteforce(
@@ -32,9 +33,9 @@ if __name__ == "__main__":
         is_new=True,
         separator=separator
     )
-    with open("step_5.output.txt", "w", encoding="utf-8") as f:
+    with open(output_file_name, "w", encoding="utf-8") as f:
         f.write(table)
-    print("Output saved at :", os.path.abspath("./step_5.output.txt"))
+    print("Output saved at :", os.path.abspath(f"./{output_file_name}"))
     print(table)
 
     # Queues behaves strangely, if I don't kill python this way, the queues takes multiple minute to close out

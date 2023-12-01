@@ -1,4 +1,5 @@
 import os
+import platform
 
 from tabulate import tabulate
 
@@ -12,6 +13,8 @@ if __name__ == "__main__":
     plugboard_settings = "NX EC RV GP SU DK IT FY BL AZ"
     initial_position = "GYD"
     ring_settings = "13 15 11"
+
+    output_file_name = f"step_3_4.output.{platform.system()}.{platform.release()}.txt"
 
     encode_machine = get_machine(
         ring_settings=ring_settings,
@@ -43,7 +46,7 @@ if __name__ == "__main__":
     )
 
     print(table)
-    with open("step_3-4.output.txt", "w", encoding="utf-8") as f:
+    with open(output_file_name, "w", encoding="utf-8") as f:
         f.write(table)
 
-    print("Output saved at :", os.path.abspath("./step_3-4.output.txt"))
+    print("Output saved at :", os.path.abspath(f"./{output_file_name}"))
