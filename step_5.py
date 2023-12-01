@@ -12,11 +12,13 @@ if __name__ == "__main__":
     ring_settings = "19 6 8"
     first_word = "METEOROLOGIE"
     separator = "X"
+
+    cpu_infos = get_cpu_info()
+    cores = cpu_infos["count"]
     output_file_name = sanitize_filename(
-        f"step_5.output.{platform.system()}.{platform.release()}.txt",
+        f"step_5.output.{platform.system()}-{platform.release()}.{cores}-cores.txt",
         platform=os.name
     )
-    cpu_infos = get_cpu_info()
 
     data = bruteforce(
         cipher,
