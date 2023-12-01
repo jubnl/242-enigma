@@ -1,6 +1,8 @@
 import os
 import platform
+
 from cpuinfo import get_cpu_info
+from pathvalidate import sanitize_filename
 
 from enigma_shit import bruteforce, print_bruteforce
 
@@ -11,7 +13,10 @@ if __name__ == "__main__":
     _ring_settings = " ".join([str(i) for i in ring_settings])
     first_word = "METEOROLOGIE"
     separator = "X"
-    output_file_name = f"step_5.output.{platform.system()}.{platform.release()}.txt"
+    output_file_name = sanitize_filename(
+        f"step_5.output.{platform.system()}.{platform.release()}.txt",
+        platform=os.name
+    )
     cpu_infos = get_cpu_info()
 
     data = bruteforce(

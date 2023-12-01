@@ -1,6 +1,7 @@
 import os
 import platform
 
+from pathvalidate import sanitize_filename
 from tabulate import tabulate
 
 from enigma_shit import encode, decode, get_machine
@@ -14,7 +15,10 @@ if __name__ == "__main__":
     initial_position = "GYD"
     ring_settings = "13 15 11"
 
-    output_file_name = f"step_3_4.output.{platform.system()}.{platform.release()}.txt"
+    output_file_name = sanitize_filename(
+        f"step_3_4.output.{platform.system()}.{platform.release()}.txt",
+        platform=os.name
+    )
 
     encode_machine = get_machine(
         ring_settings=ring_settings,
