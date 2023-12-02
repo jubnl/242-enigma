@@ -10,3 +10,7 @@
 `$$plugboard\_possibilities = \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$$`
 5. Total Possibilities
 `$$total\_possibilities = P(n\_rotors, r\_used) \times positions\_per\_rotor^{r\_used} \times \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!} \times positions\_per\_rotor^{r\_used}$$`
+
+
+General formula :
+`$$total\_possibilities = \frac{n\_rotors!}{(n\_rotors - r\_used)!} \times positions\_per\_rotor^{2 \times r\_used} \times \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$$`
