@@ -42,5 +42,5 @@ def plugboard_possibilities():
 5. Total Possibilities
 ```python
 def total_possibilities(n_rotors, r_used, positions_per_rotor):
-    return rotor_order_possibilities(n_rotors, r_used) * ring_setting_possibilities(positions_per_rotor, r_used) ** 2 * plugboard_possibilities()
+    return rotor_order_possibilities(n_rotors, r_used) * math.pow(ring_setting_possibilities(positions_per_rotor, r_used), 2) * plugboard_possibilities()
 ```
