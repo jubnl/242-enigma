@@ -42,7 +42,7 @@ def calculate_enigma_possibilities(rotors_available, rotors_used, plugboard_pair
 
     # Plugboard combinations
     plugboard_combinations = int(factorial(26) / (
-                factorial(26 - plugboard_pairs * 2) * pow(2, plugboard_pairs) * factorial(plugboard_pairs)))
+            factorial(26 - plugboard_pairs * 2) * pow(2, plugboard_pairs) * factorial(plugboard_pairs)))
 
     # Initial position possibilities (3 letters)
     initial_position_possibilities = int(pow(26, rotors_used))
@@ -50,10 +50,10 @@ def calculate_enigma_possibilities(rotors_available, rotors_used, plugboard_pair
     # Total possibilities
     total_possibilities = rotor_permutations * rotor_settings * plugboard_combinations * initial_position_possibilities
 
-    return total_possibilities
+    return f"{total_possibilities:,}".replace(",", "'")
 
 
 total_enigma_possibilities = calculate_enigma_possibilities(5, 3, 10)
-print(f"Total Enigma Machine Possibilities: {total_enigma_possibilities}")
+print(f'Total Enigma Machine Possibilities: {total_enigma_possibilities}')
 ```
-Prints out: `Total Enigma Machine Possibilities: 2793925870508516103360000`
+Prints out: `Total Enigma Machine Possibilities: 2'793'925'870'508'516'103'360'000`

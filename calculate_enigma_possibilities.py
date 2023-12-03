@@ -18,8 +18,8 @@ def calculate_enigma_possibilities(rotors_available, rotors_used, plugboard_pair
     # Total possibilities
     total_possibilities = rotor_permutations * rotor_settings * plugboard_combinations * initial_position_possibilities
 
-    return total_possibilities
+    return f"{total_possibilities:,}".replace(",", "'")
 
 
 total_enigma_possibilities = calculate_enigma_possibilities(5, 3, 10)
-print(f"Total Enigma Machine Possibilities: {total_enigma_possibilities}")
+print(f'Total Enigma Machine Possibilities: {total_enigma_possibilities}')
