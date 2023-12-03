@@ -2,7 +2,7 @@
 
 ## Theory
 1. Rotor Order Possibilities
-$$P(nRotors, rUsed) = \frac{nRotors!}{(nRotors - rUsed)!}$$
+$$rotorOrderPossibilities = P(nRotors, rUsed)$$
 2. Rotor Settings (Ring Setting Possibilities)
 $$ringSettingPossibilities = 26^{rUsed}$$
 3. Initial Rotor Positions
@@ -10,7 +10,7 @@ $$initialRotorPositions = 26^{rUsed}$$
 4. Plugboard Settings (Plugboard Possibilities)
 $$plugboardPossibilities = \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
 5. Total Possibilities
-$$totalPossibilities = P(nRotors, rUsed) \times (26^{rUsed})^2 \times plugboardPossibilities$$
+$$totalPossibilities = rotorOrderPossibilities \times ringSettingPossibilities \times initialRotorPositions \times plugboardPossibilities$$
 
 ## Code Application
 
