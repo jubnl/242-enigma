@@ -15,7 +15,7 @@ $$totalPossibilities = rotorOrderPossibilities \times ringSettingPossibilities \
 ## Math application
 $nRotors = 5$\
 $rUsed = 3$\
-$P(n, r) = \frac{n!}{(n - r)!}$\
+$P(n, r) = \frac{n!}{(n - r)!}$
 1. Rotor Order Possibilities
 $$rotorOrderPossibilities = \frac{5!}{(5 - 3)!} = 60$$
 2. Rotor Settings (Ring Setting Possibilities)
