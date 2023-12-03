@@ -6,7 +6,7 @@ $P(n, r) = \frac{n!}{(n - r)!}$
 $$rotorOrderPossibilities = P(nRotors, rUsed)$$
 2. Rotor Settings (Ring Setting Possibilities)
 $$ringSettingPossibilities = 26^{rUsed}$$
-3. Initial Rotor Positions
+3. Initial Positions
 $$initialRotorPositions = 26^{rUsed}$$
 4. Plugboard Settings (Plugboard Possibilities)
 $$plugboardPossibilities = \frac{26!}{(26 - 2 \times plugboardAmount)! \times 2^{plugboardAmount} \times plugboardAmount!}$$
@@ -20,7 +20,7 @@ $\text{let } nRotors = 5\text{, } rUsed = 3 \text{ and } plugboardAmount = 10$
 $$rotorOrderPossibilities = \frac{5!}{(5 - 3)!} = 60$$
 2. Rotor Settings (Ring Setting Possibilities)
 $$ringSettingPossibilities = 26^{3} = 17576$$
-3. Initial Rotor Positions
+3. Initial Positions
 $$initialRotorPositions = 26^{3} = 17576$$
 4. Plugboard Settings (Plugboard Possibilities)
 $$plugboardPossibilities = \frac{26!}{(26-2 \times 10)! \times 2^{10} \times 10!} = 150738274937250$$
