@@ -1,12 +1,12 @@
 # Calculate all possibilities for enigma
 
 1. Rotor Order Possibilities
-$$P(n_rotors, r_used) = \frac{n_rotors!}{(n_rotors - r_used)!}$$
+$$P(n\_rotors, r\_used) = \frac{n\_rotors!}{(n\_rotors - r\_used)!}$$
 2. Rotor Settings (Ring Setting Possibilities)
-$$ring_setting_possibilities = positions_per_rotor^{r_used}$$
+$$ring\_setting\_possibilities = positions\_per\_rotor^{r\_used}$$
 3. Initial Rotor Positions
-$$initial_rotor_positions = positions_per_rotor^{r_used}$$
+$$initial\_rotor\_positions = positions\_per\_rotor^{r\_used}$$
 4. Plugboard Settings (Plugboard Possibilities)
-$$plugboard_possibilities = \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
+$$plugboard\_possibilities = \frac{\prod\_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
 5. Total Possibilities
-$$total_possibilities = P(n_rotors, r_used) \times positions_per_rotor^{r_used} \times \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!} \times positions_per_rotor^{r_used}$$
+$$total\_possibilities = P(n\_rotors, r\_used) \times positions\_per\_rotor^{r\_used} \times \frac{\prod\_{i=0}^{9} P(26 - 2i, 2)}{10!} \times positions\_per\_rotor^{r\_used}$$
