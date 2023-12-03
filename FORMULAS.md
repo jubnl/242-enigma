@@ -9,4 +9,4 @@ $$initial\_rotor\_positions = positionsPerRotor^{rUsed}$$
 4. Plugboard Settings (Plugboard Possibilities)
 $$plugboardPossibilities = \frac{\prod\_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
 5. Total Possibilities
-$$total\_possibilities = P(nRotors, rUsed) \times positionsPerRotor^{rUsed} \times \frac{\prod\_{i=0}^{9} P(26 - 2i, 2)}{10!} \times positionsPerRotor^{rUsed}$$
+$$totalPossibilities = P(nRotors, rUsed) \times positionsPerRotor^{rUsed} \times \frac{\prod\_{i=0}^{9} P(26 - 2i, 2)}{10!} \times positionsPerRotor^{rUsed}$$
