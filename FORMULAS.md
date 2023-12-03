@@ -8,7 +8,7 @@ $$ringSettingPossibilities = 26^{rUsed}$$
 3. Initial Rotor Positions
 $$initialRotorPositions = 26^{rUsed}$$
 4. Plugboard Settings (Plugboard Possibilities)
-$$plugboardPossibilities = \frac{\prod\_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
+$$plugboardPossibilities = \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
 5. Total Possibilities
 $$totalPossibilities = P(nRotors, rUsed) \times (26^{rUsed})^2 \times plugboardPossibilities$$
 
@@ -36,7 +36,7 @@ def initial_rotor_positions(r_used):
 ```python
 def plugboard_possibilities():
     possibilities = [math.perm(26 - i * 2, 2) for i in range(10)]
-    return functools.reduce(lambda x, y: x * y, possibilities) / math.factorial(10)
+    return math.prod(possibilities) / math.factorial(10)
 ```
 
 5. Total Possibilities
