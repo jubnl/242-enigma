@@ -29,33 +29,31 @@ $$totalPossibilities = 60 \times 17576^2 \times 150738274937250 = 27939258705085
 
 ## Code Application
 
-1. Rotor Order Possibilities
 ```python
-def rotor_order_possibilities(n_rotors, r_used):
-    return math.factorial(n_rotors) / math.factorial(n_rotors - r_used)
-```
+from math import factorial, pow
 
-2. Rotor Settings (Ring Setting Possibilities)
-```python
-def ring_setting_possibilities(r_used):
-    return math.perm(26, r_used)
-```
 
-3. Initial Rotor Positions
-```python
-def initial_rotor_positions(r_used):
-    return math.perm(26, r_used)
-```
+def calculate_enigma_possibilities(rotors_available, rotors_used, plugboard_pairs):
+    # Rotor permutations
+    rotor_permutations = int(factorial(rotors_available) / factorial(rotors_available - rotors_used))
 
-4. Plugboard Settings (Plugboard Possibilities)
-```python
-def plugboard_possibilities():
-    possibilities = [math.perm(26 - i * 2, 2) for i in range(10)]
-    return math.prod(possibilities) / math.factorial(10)
-```
+    # Rotor settings (26 positions for each of the rotors)
+    rotor_settings = int(pow(26, rotors_used))
 
-5. Total Possibilities
-```python
-def total_possibilities(n_rotors, r_used):
-    return rotor_order_possibilities(n_rotors, r_used) * math.pow(ring_setting_possibilities(r_used), 2) * plugboard_possibilities()
+    # Plugboard combinations
+    plugboard_combinations = int(factorial(26) / (
+                factorial(26 - plugboard_pairs * 2) * pow(2, plugboard_pairs) * factorial(plugboard_pairs)))
+
+    # Initial position possibilities (3 letters)
+    initial_position_possibilities = int(pow(26, rotors_used))
+
+    # Total possibilities
+    total_possibilities = rotor_permutations * rotor_settings * plugboard_combinations * initial_position_possibilities
+
+    return total_possibilities
+
+
+total_enigma_possibilities = calculate_enigma_possibilities(5, 3, 10)
+print(f"Total Enigma Machine Possibilities: {total_enigma_possibilities}")
 ```
+Prints out: `Total Enigma Machine Possibilities: 2793925870508516103360000`
