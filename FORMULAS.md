@@ -12,7 +12,7 @@ $$initialRotorPositions = 26^{rUsed}$$
 $$plugboardPossibilities = \frac{26!}{(26 - 2 \times plugboardAmount)! \times 2^{plugboardAmount} \times plugboardAmount!}$$
 5. Total Possibilities
 $$totalPossibilities = rotorOrderPossibilities \times ringSettingPossibilities \times initialRotorPositions \times plugboardPossibilities$$\
-$$totalPossibilities = P(nRotors, rUsed) \times 26^{rUsed} \times 26^{rUsed} \times \frac{26!}{(26 - 2 \times plugboardAmount)! \times 2^plugboardAmount \times plugboardAmount!}$$
+$$totalPossibilities = P(nRotors, rUsed) \times 26^{2 \times rUsed} \times \frac{26!}{(26 - 2 \times plugboardAmount)! \times 2^plugboardAmount \times plugboardAmount!}$$
 
 ## Math application
 $nRotors = 5$\
