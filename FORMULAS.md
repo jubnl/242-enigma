@@ -13,7 +13,7 @@
 
 
 General formula :
-$$total\_possibilities = \frac{n\_rotors!}{(n\_rotors - r\_used)!} \times positions\_per\_rotor^{2 \times r\_used} \times \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$$
+$total\_possibilities = \frac{n\_rotors!}{(n\_rotors - r\_used)!} \times positions\_per\_rotor^{2 \times r\_used} \times \frac{\prod_{i=0}^{9} P(26 - 2i, 2)}{10!}$
 
 **The Cauchy-Schwarz Inequality**
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$
