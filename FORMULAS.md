@@ -45,7 +45,7 @@ def calculate_enigma_possibilities(rotors_available, rotors_used, plugboard_pair
             factorial(26 - plugboard_pairs * 2) * pow(2, plugboard_pairs) * factorial(plugboard_pairs)))
 
     # Initial position possibilities (3 letters)
-    initial_position_possibilities = int(pow(26, rotors_used))
+    initial_position_possibilities = int(pow(26, 3))
 
     # Total possibilities
     total_possibilities = rotor_permutations * rotor_settings * plugboard_combinations * initial_position_possibilities
