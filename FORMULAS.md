@@ -29,7 +29,7 @@ $$totalPossibilities = 60 \times 17576^2 \times 150738274937250 = 27939258705085
 Or in a simplified fraction :
 $$\frac{26^6 (26! \times 5!)}{6! \times 2^{10} \times 10! \times 2!}$$
 
-$$\frac{26^6 \cdot (26! \cdot 5!)}{6! \cdot 2^{10} \cdot 10! \cdot 2!} = \frac{4826809 \cdot \left( \int_{1}^{\infty} e^{-t} t^5 dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(6 + k) k!} \right) \cdot \left( \int_{1}^{\infty} e^{-t} t^{26} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(27 + k) k!} \right)}{16 \cdot \left( \int_{1}^{\infty} e^{-t} t^2 dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(3 + k) k!} \right) \cdot \left( \int_{1}^{\infty} e^{-t} t^6 dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(7 + k) k!} \right) \cdot \left( \int_{1}^{\infty} e^{-t} t^{10} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(11 + k) k!} \right)}$$
+$$\frac{26^6 \times (26! \times 5!)}{6! \times 2^{10} \times 10! \times 2!} = \frac{4826809 \left( \int_{1}^{\infty} \frac{t^5}{e^t} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(6+k)k!} \right) \left( \int_{1}^{\infty} \frac{t^{26}}{e^t} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(27+k)k!} \right)}{16 \left( \int_{1}^{\infty} \frac{t^2}{e^t} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(3+k)k!} \right) \left( \int_{1}^{\infty} \frac{t^6}{e^t} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(7+k)k!} \right) \left( \int_{1}^{\infty} \frac{t^{10}}{e^t} dt + \sum_{k=0}^{\infty} \frac{(-1)^k}{(11+k)k!} \right)}$$
 
 ## Code Application
 
