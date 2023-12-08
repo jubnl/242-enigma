@@ -27,7 +27,7 @@ $$plugboardPossibilities = \frac{26!}{(26-2 \times 10)! \times 2^{10} \times 10!
 5. Total Possibilities
 $$totalPossibilities = 60 \times 17576^2 \times 150738274937250 = 2793925870508516103360000$$
 Or in a simplified fraction :
-$$\frac{26^6(26!5!)}{6!2^{10}10!2!}$$
+$$\frac{26^6 (26! \times 5!)}{6! \times 2^{10} \times 10! \times 2!}$$
 
 ## Code Application
 
