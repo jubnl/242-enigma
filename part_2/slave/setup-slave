@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# update system
+sudo apt update && sudo apt upgrade -y # && sudo apt install python3-full
+
+# install docker
+curl -sSL https://get.docker.com | sh
+
+# build docker image
+sudo docker build -t slave .
+
+# start container
+sudo docker run --net=host -it slave --restart unless-stopped -p 9700:9700

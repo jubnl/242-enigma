@@ -1,0 +1,2 @@
+dispy~=4.15.2
+py-enigma~=0.1
