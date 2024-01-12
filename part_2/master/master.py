@@ -15,7 +15,7 @@ def job_status(job):  # executed at the client
     print(job.result)
     for j in jobs:
         if j.status in [dispy.DispyJob.Created, dispy.DispyJob.Running,
-                        dispy.DispyJob.ProvisionalResult, dispy.DispyJob.Abandoned]:
+                        dispy.DispyJob.ProvisionalResult]:
             cluster.cancel(j)
 
 
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     cluster = dispy.JobCluster(
         process_bruteforce,
         nodes=['192.168.65.14', '192.168.65.104', '192.168.65.145'],
-        depends=[get_machine, job_status, jobs],
+        depends=[get_machine],
         job_status=job_status,
     )
 
