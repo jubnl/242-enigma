@@ -31,9 +31,11 @@ Sur chaque slave :
 2. Executer setup-slave
 
 Sur le master :
-1. Copier [master.py](master/master.py), [requirements.txt](master/requirements.txt) et le dossier [enigma_shit](../enigma_shit) sur le master
-2. `python -m venv venv`
-3. `source venv/bin/activate`
-4. `pip install -r requirements.txt`
-5. Editer les IPs dans master.py
-6. `python master.py`
+1. Copier [master.py](master/master.py), [requirements.txt](master/requirements.txt), le dossier [enigma_shit](../enigma_shit) et le dossier [multiprocessing_shit](../multiprocessing_shit) sur le master
+2. `chmod +x ./setup-master`
+3. `./setup-master` C'est le truc pour mettre python 3.6
+4. `python3.6 -m venv venv`
+5. `source venv/bin/activate`
+6. `pip install -r requirements.txt`
+7. Editer les IPs dans master.py
+8. `python master.py`
